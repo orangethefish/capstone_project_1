@@ -17,7 +17,7 @@ if not os.path.exists("csv/unofficial"):
 # Construct the full path for the CSV file in the "csv" folder
 csv_path = os.path.join("csv","unofficial", args.csv_filename)
 
-print(f"Wait 2 seconds ang then save data to '{csv_path}'")
+print(f"Wait 2 seconds and then save data to '{csv_path}'")
 time.sleep(2)
 # Open the serial port
 ser = serial.Serial(comPort, 9600)
