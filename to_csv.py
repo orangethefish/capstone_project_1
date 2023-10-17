@@ -3,6 +3,8 @@ import serial
 import csv
 import argparse
 
+comPort = 'COM6'
+
 # Parse command-line arguments
 parser = argparse.ArgumentParser(description="Read data from a serial port and save it to a CSV file")
 parser.add_argument('csv_filename', help="Name of the CSV file to save data")
@@ -16,7 +18,7 @@ if not os.path.exists("csv/unofficial"):
 csv_path = os.path.join("csv","unofficial", args.csv_filename)
 
 # Open the serial port
-ser = serial.Serial('COM6', 9600)
+ser = serial.Serial(comPort, 9600)
 
 # Open a CSV file for writing
 with open(csv_path, 'w', newline='') as csv_file:
