@@ -2,7 +2,7 @@ import os
 import serial
 import csv
 import argparse
-
+import time
 comPort = 'COM6'
 
 # Parse command-line arguments
@@ -17,6 +17,8 @@ if not os.path.exists("csv/unofficial"):
 # Construct the full path for the CSV file in the "csv" folder
 csv_path = os.path.join("csv","unofficial", args.csv_filename)
 
+print(f"Wait 2 seconds ang then save data to '{csv_path}'")
+time.sleep(2)
 # Open the serial port
 ser = serial.Serial(comPort, 9600)
 
@@ -47,4 +49,7 @@ with open(csv_path, 'w', newline='') as csv_file:
             break
         except Exception as e:
             print(f"Error: {e}")
+
+# Close the serial port
+ser.close()
            
