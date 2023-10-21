@@ -1,22 +1,24 @@
-#ifndef KALMAN_ROLL_PITCH_H
-#define KALMAN_ROLL_PITCH_H
+#ifndef EKF_H
+#define EKF_H
 
 #include <math.h>
 
-#define g 9.80665f
+typedef struct {
 
+	float phi_r;
+	float theta_r;
 
-typedef struct{
-    float phi_rad;
-    float theta_rad;
+	float P[2][2];
 
-    float P[4];
-    float Q[2];
-    float R[3];
-}KalmanRollPitch;
+	float Q[2];
+	float R[3];
 
-void KalmanRollPitch_Init(KalmanRollPitch *kal, float Pinit, float *Q, float *R);
-void KalmanRollPitch_Predict(KalmanRollPitch *kal, float *gyr_rps, float T);
-void KalmanRollPitch_Update(KalmanRollPitch *kal, float *acc_mps2);
+} EKF;
+
+void EKF_Init(EKF *ekf, float P[2], float Q[2], float R[3]);
+
+void EKF_Predict(EKF *ekf, float p_rps, float q_rps, float r_rps, float sampleTime_s);
+
+void EKF_Update(EKF *ekf, float ax_mps2, float ay_mps2, float az_mps2);
 
 #endif
