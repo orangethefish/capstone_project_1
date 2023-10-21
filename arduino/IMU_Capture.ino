@@ -11,7 +11,6 @@ LSM6DS3 myIMU(I2C_MODE, 0x6A);  //I2C device address 0x6A
 #define CUTOFF_FREQUENCY 20
 #define INTERVAL_MS (1000 / (FREQUENCY_HZ + 1))
 #define SAMPLING_PERIOD (1/FREQUENCY_HZ)
-#define RAD_TO_DEG 		57.2957795131f
 
 static unsigned long last_interval_ms = 0;
 float rollEstimate_rad;
@@ -20,6 +19,9 @@ float rollAcc_rad  = 0.0f;
 float pitchAcc_rad = 0.0f;
 float rollGyr_rad = 0.0f;
 float pitchGyr_rad = 0.0f;
+float P_init[2] = {0.1f, 0.1f};
+float Q[2] = {0.001f, 0.001f};
+float R[3] = {0.011f, 0.011f, 0.011f};
 double acc_rdg[3],gyr_rdg[3]; //0 is x, 1 is y, 2 is z
 double offset[6]={0.051,0.1042,-0.1294,-0.6362,-0.6586,0.9682};
 double alpha;
@@ -35,7 +37,7 @@ void setup() {
     Serial.println("Device error");
   } else {
     Serial.println("Device OK!");
-    EKF_Init(&ekf, (float[]){0.1f, 0.1f}, (float[]){0.001f, 0.001f}, (float[]){0.011f, 0.011f, 0.011f});
+    EKF_Init(&ekf, P_init, Q, R);
     double timeConstant = 1 / (2 * PI * CUTOFF_FREQUENCY);
     alpha = timeConstant / (timeConstant + SAMPLING_PERIOD);
     rollEstimate_rad  = 0.0f;
