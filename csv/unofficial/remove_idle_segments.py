@@ -51,18 +51,18 @@ with open('edited_data.csv') as f:
 fig, ax = plt.subplots()
 ax.set_xlabel('Time (ms)')
 ax.set_ylabel('Acceleration (m/s^2)')
-# ax.grid(True)
-# time = time[:500]
-# x = x[:500]
-# y = y[:500]
-# z = z[:500]
-dxdt = np.diff(x) / np.diff(time)
-dxdt = dxdt[:500]
-# ax.plot(time, x, label='X')
-# ax.plot(time, y, label='Y')
-# ax.plot(time, z, label='Z')
-# ax.legend()
-ax.plot(time[:500], dxdt, label='Derivative of x')
+ax.grid(True)
+time = time[:500]
+x = x[:500]
+y = y[:500]
+z = z[:500]
+ax.plot(time, x, label='X')
+ax.plot(time, y, label='Y')
+ax.plot(time, z, label='Z')
 ax.legend()
+# dxdt = np.diff(x) / np.diff(time)
+# dxdt = dxdt[:500]
+# ax.plot(time[:500], dxdt, label='Derivative of x')
+# ax.legend()
 
 plt.show()
