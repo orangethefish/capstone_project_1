@@ -21,7 +21,7 @@ float rollGyr_rad = 0.0f;
 float pitchGyr_rad = 0.0f;
 float P_init[2] = {0.1f, 0.1f};
 float Q[2] = {0.001f, 0.001f};
-float R[3] = {0.011f, 0.011f, 0.011f};
+float R[3] = {0.03f, 0.011f, 0.011f};
 double acc_rdg[3],gyr_rdg[3]; //0 is x, 1 is y, 2 is z
 double offset[6]={0.051,0.1042,-0.1294,-0.6362,-0.6586,0.9682};
 double alpha;

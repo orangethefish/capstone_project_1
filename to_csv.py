@@ -24,7 +24,7 @@ def main(com_port, filename, official):
         csv_writer = csv.writer(csv_file)
 
         # Write the header row to the CSV file
-        csv_writer.writerow(['ax', 'ay', 'az', 'gx', 'gy', 'gz'])
+        csv_writer.writerow(["phi_r", "theta_r"])
 
         # Continuously read and write data until the connection is closed
         while ser.is_open:
@@ -36,10 +36,10 @@ def main(com_port, filename, official):
                 values = line.split()
 
                 # Check if the line has all the required values
-                if len(values) == 6:
-                    ax, ay, az, gx, gy, gz = values
-                    csv_writer.writerow([ax, ay, az, gx, gy, gz])
-                    print(f"Recorded: ax={ax}, ay={ay}, az={az}, gx={gx}, gy={gy}, gz={gz}")
+                if len(values) == 2:
+                    phi_r, theta_r = values
+                    csv_writer.writerow([phi_r, theta_r])
+                    print(f"phi_r: {phi_r}, theta_r: {theta_r}")
 
             except KeyboardInterrupt:
                 print("KeyboardInterrupt: Exiting...")
