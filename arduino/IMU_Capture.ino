@@ -61,23 +61,12 @@ void loop() {
     gyr_rdg[0]= alpha * gyr_rdg[0]  + (1 - alpha) * (myIMU.readFloatGyroY()  + offset[3]);
     gyr_rdg[2]= alpha * gyr_rdg[2]  - (1 - alpha) * (myIMU.readFloatGyroZ()  + offset[5]);
     EKF_Predict(&ekf, gyr_rdg[0], gyr_rdg[1], gyr_rdg[2], SAMPLING_PERIOD);
-    if(count>=10){
+    if(count>=5){
       EKF_Update(&ekf, acc_rdg[0], acc_rdg[1], acc_rdg[2]);
       count=0;
     }else{
       count++;
     }
-    // Serial.print(acc_rdg[0], 4);
-    // Serial.print('\t');
-    // Serial.print(acc_rdg[1], 4);
-    // Serial.print('\t');
-    // Serial.print(acc_rdg[2], 4);
-    // Serial.print('\t');
-    // Serial.print(gyr_rdg[0], 4);
-    // Serial.print('\t');
-    // Serial.print(gyr_rdg[1], 4);
-    // Serial.print('\t');
-    // Serial.println(gyr_rdg[2], 4);
     Serial.print(ekf.phi_r * RAD_TO_DEG, 4);
     Serial.print('\t');
     Serial.println(ekf.theta_r * RAD_TO_DEG, 4);
