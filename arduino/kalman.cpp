@@ -30,6 +30,8 @@ void EKF_Predict(EKF *ekf, float p_rps, float q_rps, float r_rps, float sampleTi
 	/* Compute state transition function dx/dt = f(x,u) */
 	float dphidt	= p_rps + tt * (q_rps * sp + r_rps * cp);
 	float dthetadt	= 				q_rps * cp - r_rps * sp;
+	float dpsidt 	=				q_rps * sp / cp + r_rps * cp / cp;
+
 
 	/* Update state estimates (x(n+1) = x(n) + T * dx/dt) */
 	ekf->phi_r 		+= sampleTime_s * dphidt;

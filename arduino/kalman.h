@@ -8,9 +8,9 @@ typedef struct {
 	float phi_r;
 	float theta_r;
 
-	float P[2][2];
+	float P[3][3];
 
-	float Q[2];
+	float Q[3];
 	float R[3];
 
 } EKF;
