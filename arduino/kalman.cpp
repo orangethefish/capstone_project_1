@@ -5,6 +5,7 @@ void EKF_Init(EKF *ekf, float P[2], float Q[2], float R[3]) {
 	/* Reset state estimates */
 	ekf->phi_r 		= 0.0f;
 	ekf->theta_r 	= 0.0f;
+	ekf->psi_r 		= 0.0f;
 
 	/* Initialise state covariance matrix */
 	ekf->P[0][0] = P[0]; ekf->P[0][1] = 0.0f;
@@ -30,12 +31,13 @@ void EKF_Predict(EKF *ekf, float p_rps, float q_rps, float r_rps, float sampleTi
 	/* Compute state transition function dx/dt = f(x,u) */
 	float dphidt	= p_rps + tt * (q_rps * sp + r_rps * cp);
 	float dthetadt	= 				q_rps * cp - r_rps * sp;
-	float dpsidt 	=				q_rps * sp / cp + r_rps * cp / cp;
+	float dpsidt 	=				q_rps * sp + r_rps * cp;
 
 
 	/* Update state estimates (x(n+1) = x(n) + T * dx/dt) */
 	ekf->phi_r 		+= sampleTime_s * dphidt;
 	ekf->theta_r	+= sampleTime_s * dthetadt;
+	ekf->psi_r 		+= sampleTime_s * dpsidt;
 
 	/* Re-compute trigonometric quantities */
 	sp 			= sinf(ekf->phi_r);
