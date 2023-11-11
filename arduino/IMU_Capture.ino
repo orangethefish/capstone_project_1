@@ -26,6 +26,7 @@ double acc_rdg[3],gyr_rdg[3]; //0 is x, 1 is y, 2 is z
 double offset[6]={0.051,0.1042,-0.1294,-0.6362,-0.6586,0.9682};
 double alpha;
 int count=0;
+float yaw = 0;
 EKF ekf;
 
 void setup() {
@@ -69,7 +70,9 @@ void loop() {
     }
     Serial.print(ekf.phi_r * RAD_TO_DEG, 4);
     Serial.print('\t');
-    Serial.println(ekf.theta_r * RAD_TO_DEG, 4);
+    Serial.print(ekf.theta_r * RAD_TO_DEG, 4);
+    Serial.print('\t');
+    Serial.println(yaw, 4);
   }
 }
 

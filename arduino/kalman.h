@@ -7,7 +7,7 @@ typedef struct {
 
 	float phi_r;
 	float theta_r;
-
+	
 	float P[2][2];
 
 	float Q[2];
